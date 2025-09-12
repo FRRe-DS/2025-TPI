@@ -1,3 +1,4 @@
+[![Build Status](https://github.com/FRRe-DS/2025-TPI/actions/workflows/validate-openapi.yml/badge.svg)](https://github.com/FRRe-DS/2025-TPI/actions/workflows/validate-openapi.yml)
 # Desarrollo de Software - 2025
 
 ## Consideraciones
