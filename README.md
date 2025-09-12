@@ -14,7 +14,7 @@ Como parte del espíritu emprendedor de la cátedra Desarrollo de Software de la
 
 3.	Transporte, Logística y Seguimiento: este subsistema es el encargado de proveer los medios de transporte al portal de compras. El costo de transporte de una compra será calculado por este servicio en base a las reglas de negocio que este servicio permita introducir. Por ejemplo, para los pedidos que el portal de compras solicite el costo de transporte, este servicio puede utilizar el medio de transporte solicitado (avión, barco, tren, camión), la dirección de entrega, la cantidad de productos, peso de estos, dirección del centro de distribución, etc., y con estos datos calcular el costo del transporte. Para esto el servicio de transporte deberá consultar al servicio de bienes y servicios los detalles y ubicaciones de los productos de una compra. Una vez concretada una compra, este servicio será el responsable de mantener informado al portal de compras de la ubicación y tiempo estimado de entrega del producto. Una vez entregado el producto, este servicio será el responsable de avisar al portar de compras que se ha entregado el producto.
 
-## División de Grupos y Escenarios
+## Distribución de Grupos y Escenarios
 
 | Grupo         | Escenario                           |
 | --------------| ----------------------------------- |
