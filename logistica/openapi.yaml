@@ -3,6 +3,10 @@ info:
   title: Logistics/Transportation API
   version: "1.0.0"
   description: API to quote, create, and manage shipments.
+  termsOfService: 'http://frre.utn.edu.ar/terminos'
+  license:
+    name: Apache-2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
 servers:
   - url: https://api.logistica-utn.com
 paths:
