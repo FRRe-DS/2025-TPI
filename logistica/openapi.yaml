@@ -281,7 +281,7 @@ components:
         state: { type: string }
         postal_code:
           type: string
-          description: Argentinian Postal Code — either CPA format (Ej: H3500ABC) or legacy 4 digits
+          description: Argentinian Postal Code
           pattern: '^([A-Z]{1}\d{4}[A-Z]{3}$)'
         country:
           type: string
