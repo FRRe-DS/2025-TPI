@@ -32,7 +32,7 @@ Por ejemplo para el Grupo 1
 curl --location 'http://localhost:8080/realms/ds-2025-realm/protocol/openid-connect/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'grant_type=client_credentials' \
---data-urlencode 'client_id=group_01' \
+--data-urlencode 'client_id=grupo-01' \
 --data-urlencode 'client_secret=68230b9a-f540-4e16-9f56-19180f303676'
 ```
 
