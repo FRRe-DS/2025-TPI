@@ -67,7 +67,7 @@
       "name": "Cliente del grupo 01",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "",
+      "secret": "68230b9a-f540-4e16-9f56-19180f303676",
       "redirectUris": ["*"],
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
