@@ -210,64 +210,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/ReservaCompleta'
 
-  /reservas/{idReserva}:
-    get:
-      tags: [Reservas]
-      summary: Consultar una reserva por ID
-      parameters:
-        - name: idReserva
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: usuarioId
-          in: query
-          required: true
-          schema:
-            type: integer
-          description: "ID del usuario propietario de la reserva."
-      responses:
-        '200':
-          description: Reserva encontrada
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ReservaCompleta'
-        '404':
-          description: Reserva no encontrada
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-    patch:
-      tags: [Reservas]
-      summary: Actualizar estado de una reserva
-      parameters:
-        - name: idReserva
-          in: path
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ActualizarReservaInput'
-      responses:
-        '200':
-          description: Reserva actualizada
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ReservaCompleta'
-        '404':
-          description: Reserva no encontrada
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
   /categorias:
     get:
       tags: [Categorías]
@@ -409,6 +351,10 @@ components:
           type: number
           format: float
           minimum: 0
+        dimensiones:
+          $ref: '#/components/schemas/Dimensiones'
+        ubicacion:
+          $ref: '#/components/schemas/UbicacionAlmacen'
         imagenes:
           type: array
           items:
@@ -436,6 +382,10 @@ components:
         pesoKg:
           type: number
           format: float
+        dimensiones:
+          $ref: '#/components/schemas/Dimensiones'
+        ubicacion:
+          $ref: '#/components/schemas/UbicacionAlmacen'
         imagenes:
           type: array
           items:
@@ -468,6 +418,10 @@ components:
         pesoKg:
           type: number
           format: float
+        dimensiones:
+          $ref: '#/components/schemas/Dimensiones'
+        ubicacion:
+          $ref: '#/components/schemas/UbicacionAlmacen'
         imagenes:
           type: array
           items:
@@ -626,6 +580,36 @@ components:
         mensaje: "Stock liberado correctamente."
         idReserva: 550
         estado: "liberado"
+
+    Dimensiones:
+      type: object
+      description: "Dimensiones del producto en centímetros."
+      properties:
+        largoCm:
+          type: number
+          format: float
+          minimum: 0
+        anchoCm:
+          type: number
+          format: float
+          minimum: 0
+        altoCm:
+          type: number
+          format: float
+          minimum: 0
+
+    UbicacionAlmacen:
+      type: object
+      description: "Ubicación física del producto en el almacén."
+      properties:
+        almacenId:
+          type: integer
+        pasillo:
+          type: string
+        estanteria:
+          type: string
+        nivel:
+          type: integer
 
     ErrorResponse:
       type: object
