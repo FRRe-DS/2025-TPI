@@ -184,8 +184,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-<<<<<<< HEAD
-=======
   /reservas/{idReserva}:
     get:
       tags: [Reservas]
@@ -268,8 +266,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
->>>>>>> b541d88 (cambios en stock, actualizado /reservas con post y delete, eliminados /stock/reserva /stock/liberar y añadido nuevas propiedades en productos)
   /categorias:
     get:
       tags: [Categorías]
