@@ -27,6 +27,9 @@ paths:
   /productos:
     get:
       tags: [Productos]
+      operationId: listarProductos
+      security:
+        - OAuth2: [productos:read]      
       summary: Listar productos
       parameters:
         - $ref: '#/components/parameters/PaginaActual'
@@ -49,6 +52,9 @@ paths:
     post:
       tags: [Productos]
       summary: Crear un producto
+      operationId: crearProducto
+      security:
+        - OAuth2: [productos:write]
       requestBody:
         required: true
         content:
@@ -73,6 +79,9 @@ paths:
     get:
       tags: [Productos]
       summary: Obtener un producto por ID
+      operationId: obtenerProductoPorId
+      security:
+        - OAuth2: [productos:read]
       parameters:
         - name: productoId
           in: path
@@ -95,6 +104,9 @@ paths:
     patch:
       tags: [Productos]
       summary: Actualizar parcialmente un producto
+      operationId: actualizarProducto
+      security:
+        - OAuth2: [productos:write]
       parameters:
         - name: productoId
           in: path
@@ -117,6 +129,9 @@ paths:
     delete:
       tags: [Productos]
       summary: Eliminar un producto
+      operationId: eliminarProducto
+      security:
+        - OAuth2: [productos:write]
       parameters:
         - name: productoId
           in: path
@@ -131,6 +146,9 @@ paths:
     get:
       tags: [Reservas]
       summary: Listar reservas de un usuario
+      operationId: listarReservas
+      security:
+        - OAuth2: [reservas:read]      
       parameters:
         - name: usuarioId
           in: query
@@ -158,6 +176,9 @@ paths:
     post:
       tags: [Reservas]
       summary: Crear una reserva
+      operationId: crearReserva
+      security:
+        - OAuth2: [reservas:write]
       requestBody:
         required: true
         content:
@@ -188,6 +209,9 @@ paths:
     get:
       tags: [Reservas]
       summary: Consultar una reserva por ID
+      operationId: obtenerReservaPorId
+      security:
+        - OAuth2: [reservas:read]
       parameters:
         - name: idReserva
           in: path
@@ -216,6 +240,9 @@ paths:
     patch:
       tags: [Reservas]
       summary: Actualizar estado de una reserva
+      operationId: actualizarReserva
+      security:
+        - OAuth2: [reservas:write]
       parameters:
         - name: idReserva
           in: path
@@ -244,6 +271,9 @@ paths:
     delete:
       tags: [Reservas]
       summary: Cancelar una reserva
+      operationId: cancelarReserva
+      security:
+        - OAuth2: [reservas:write]
       description: "Cancela una reserva y libera el stock correspondiente."
       parameters:
         - name: idReserva
@@ -270,6 +300,9 @@ paths:
     get:
       tags: [Categorías]
       summary: Listar todas las categorías
+      operationId: listarCategorias
+      security:
+        - OAuth2: [categorias:read]
       responses:
         '200':
           description: Una lista de categorías.
@@ -282,6 +315,9 @@ paths:
     post:
       tags: [Categorías]
       summary: Crear una nueva categoría
+      operationId: crearCategoria
+      security: 
+        - OAuth2: [categorias:write]
       requestBody:
         required: true
         content:
@@ -306,6 +342,9 @@ paths:
     get:
       tags: [Categorías]
       summary: Obtener una categoría por ID
+      operationId: obtenerCategoriaPorId
+      security:
+        - OAuth2: [categorias:read]
       parameters:
         - name: categoriaId
           in: path
@@ -328,6 +367,9 @@ paths:
     patch:
       tags: [Categorías]
       summary: Actualizar una categoría
+      operationId: actualizarCategoria
+      security:
+        - OAuth2: [categorias:write]
       parameters:
         - name: categoriaId
           in: path
@@ -350,6 +392,9 @@ paths:
     delete:
       tags: [Categorías]
       summary: Eliminar una categoría
+      operationId: eliminarCategoria
+      security:
+        - OAuth2: [categorias:write]
       parameters:
         - name: categoriaId
           in: path

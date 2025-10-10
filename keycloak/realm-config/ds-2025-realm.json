@@ -11,6 +11,10 @@
     "stock:write",
     "productos:read",
     "productos:write",
+    "categorias:read",
+    "categorias:write",
+    "reservas:read",
+    "reservas:write",
     "envios:read",
     "envios:write"
   ],
