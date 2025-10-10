@@ -127,60 +127,6 @@ paths:
         '204':
           description: Producto eliminado
 
-  /stock/reservar:
-    post:
-      tags: [Stock]
-      summary: Reservar stock para una compra
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ReservaInput'
-      responses:
-        '200':
-          description: Reserva confirmada
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ReservaOutput'
-        '400':
-          description: Stock insuficiente o datos inválidos
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '409':
-          description: Conflicto de reserva (condición de carrera)
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-  /stock/liberar:
-    post:
-      tags: [Stock]
-      summary: Liberar stock reservado
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LiberacionInput'
-      responses:
-        '200':
-          description: Stock liberado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LiberacionOutput'
-        '404':
-          description: Reserva no encontrada
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
   /reservas:
     get:
       tags: [Reservas]
@@ -209,7 +155,121 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ReservaCompleta'
+    post:
+      tags: [Reservas]
+      summary: Crear una reserva
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservaInput'
+      responses:
+        '201':
+          description: Reserva creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservaOutput'
+        '400':
+          description: Stock insuficiente o datos inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflicto de reserva (condición de carrera)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
+<<<<<<< HEAD
+=======
+  /reservas/{idReserva}:
+    get:
+      tags: [Reservas]
+      summary: Consultar una reserva por ID
+      parameters:
+        - name: idReserva
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: usuarioId
+          in: query
+          required: true
+          schema:
+            type: integer
+          description: "ID del usuario propietario de la reserva."
+      responses:
+        '200':
+          description: Reserva encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservaCompleta'
+        '404':
+          description: Reserva no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      tags: [Reservas]
+      summary: Actualizar estado de una reserva
+      parameters:
+        - name: idReserva
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualizarReservaInput'
+      responses:
+        '200':
+          description: Reserva actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservaCompleta'
+        '404':
+          description: Reserva no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags: [Reservas]
+      summary: Cancelar una reserva
+      description: "Cancela una reserva y libera el stock correspondiente."
+      parameters:
+        - name: idReserva
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelacionReservaInput'
+      responses:
+        '204':
+          description: Reserva cancelada y stock liberado.
+        '404':
+          description: Reserva no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+>>>>>>> b541d88 (cambios en stock, actualizado /reservas con post y delete, eliminados /stock/reserva /stock/liberar y añadido nuevas propiedades en productos)
   /categorias:
     get:
       tags: [Categorías]
@@ -549,6 +609,16 @@ components:
       example:
         usuarioId: 123
         estado: "cancelado"
+
+    CancelacionReservaInput:
+      type: object
+      required: [motivo]
+      properties:
+        motivo:
+          type: string
+          description: "Motivo de la cancelación de la reserva."
+      example:
+        motivo: "El cliente canceló la compra."
 
     LiberacionInput:
       type: object
