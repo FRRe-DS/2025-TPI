@@ -2,7 +2,6 @@
   "realm": "ds-2025-realm",
   "enabled": true,
 
-
   "defaultDefaultClientScopes": [
     "usuarios:read",
     "usuarios:write",
