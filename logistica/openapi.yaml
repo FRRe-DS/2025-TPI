@@ -32,7 +32,7 @@ paths:
         4. Returns estimated cost based on weight, volume, distance, and transport type
         5. NO data is persisted (quote only)
       security:
-        - bearerAuth: []
+        - OAuth2: ["envios:read"]
       requestBody:
         required: true
         content:
@@ -92,7 +92,7 @@ paths:
         
         Returns basic information about each transport type (air, sea, rail, road).
       security:
-        - bearerAuth: []
+        - OAuth2: ["envios:read"]
       responses:
         "200":
           description: List of available transport methods
@@ -159,7 +159,7 @@ paths:
         - Product dimensions and weight
         - Warehouse location (departure address)
       security:
-        - bearerAuth: []
+        - OAuth2: ["envios:write"]
       requestBody:
         required: true
         content:
@@ -223,7 +223,7 @@ paths:
         
         All filters are optional. Without filters, returns all shipments (paginated).
       security:
-        - bearerAuth: []
+        - OAuth2: ["envios:read"]
       parameters:
         - in: query
           name: user_id
@@ -328,7 +328,7 @@ paths:
         
         Used by Order Management to show shipment details to customers.
       security:
-        - bearerAuth: []
+        - OAuth2: ["envios:read"]
       parameters:
         - in: path
           name: shipping_id
@@ -413,7 +413,7 @@ paths:
         - Notifies Order Management module
         - Triggers inventory stock return in Inventory module
       security:
-        - bearerAuth: []
+        - OAuth2: ["envios:write"]
       parameters:
         - in: path
           name: shipping_id
@@ -460,11 +460,21 @@ paths:
 # ===========================
 components:
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: JWT token obtained from authentication service
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://keycloak.example.com/realms/ds-2025-realm/protocol/openid-connect/auth # TODO: cambiar por la URL real de keycloak en produccion
+          tokenUrl: https://keycloak.example.com/realms/ds-2025-realm/protocol/openid-connect/token # TODO: cambiar por la URL real de keycloak en produccion
+          scopes:
+            usuarios:read: Allows reading user information
+            productos:read: Allows reading product information from the Stock module
+            envios:read: Allows reading shipment information and calculating costs
+            envios:write: Allows creating, updating and cancelling shipments
+            reservas:read: Allows reading stock reservation information
+            reservas:write: Allows creating, updating and cancelling stock reservations
+            stock:read: Allows reading stock information
+            stock:write: Allows creating, updating and cancelling stock
 
   schemas:
     # ===========================
@@ -1030,4 +1040,4 @@ components:
 # GLOBAL SECURITY
 # ===========================
 security:
-  - bearerAuth: []
+  - OAuth2: []
