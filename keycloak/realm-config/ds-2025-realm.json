@@ -153,7 +153,17 @@
       ],
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
-      "protocol": "openid-connect"
+      "protocol": "openid-connect",
+      "defaultClientScopes": [
+        "usuarios:read",
+        "productos:read",
+        "envios:write",
+        "envios:read",
+        "reservas:read",
+        "reservas:write",
+        "stock:read",
+        "stock:write"
+      ]
     },
     {
       "clientId": "grupo-04",
