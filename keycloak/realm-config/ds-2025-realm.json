@@ -1,6 +1,7 @@
 {
   "realm": "ds-2025-realm",
   "enabled": true,
+  "registrationAllowed": true,
   "defaultDefaultClientScopes": [
     "usuarios:read",
     "usuarios:write",
@@ -395,6 +396,9 @@
       "redirectUris": [
         "*"
       ],
+      "webOrigins": [
+        "*"
+      ],
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
       "protocol": "openid-connect",
@@ -403,7 +407,8 @@
       ],
       "attributes": {
         "post.logout.redirect.uris": "*"
-      }
+      },
+      "publicClient": true
     },
     {
       "clientId": "grupo-02",
