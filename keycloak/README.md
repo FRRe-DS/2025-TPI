@@ -70,3 +70,52 @@ Podemos obtener la configuración OIDC en la URL: [.well-known/openid-configurat
 
 Podemos obtener las JSON Web Key Set en la URL: [JWKS](http://localhost:8080/realms/ds-2025-realm/protocol/openid-connect/certs)
 
+---
+
+## 🔧 Solución de Problemas de Sincronización
+
+### Problema: Los cambios en el archivo realm no se aplican
+
+Si modificas el archivo `realm-config/ds-2025-realm.json` pero los cambios no se reflejan en Keycloak, sigue estos pasos:
+
+
+#### 1. Reinicio Completo con Limpieza
+
+Para aplicar los cambios en el archivo realm, necesitas hacer un reinicio completo que limpie los datos persistentes:
+
+```bash
+# Detener contenedores
+docker-compose down
+
+# Eliminar volúmenes (esto borrará todos los datos)
+docker volume rm keycloak_postgres_data
+
+# Limpiar sistema Docker
+docker system prune -f
+
+# Reiniciar
+docker-compose up -d
+```
+
+#### 2. Verificar la Configuración
+
+Después del reinicio, verifica que:
+
+1. **Default Client Scopes del Realm**: Ve a `Realm Settings > Client Scopes` y verifica que aparezcan todos los scopes definidos en `defaultDefaultClientScopes`
+
+2. **Client Scopes de los Clientes**: Ve a cada cliente (ej: `grupo-03`) y verifica que tenga los `defaultClientScopes` correctos
+
+3. **Acceso a la Consola**: http://localhost:8080 con las credenciales del archivo `.env`
+
+### Client Scopes Disponibles
+
+El realm ahora incluye todos estos client scopes:
+
+- `usuarios:read` / `usuarios:write`
+- `compras:read` / `compras:write`
+- `stock:read` / `stock:write`
+- `productos:read` / `productos:write`
+- `categorias:read` / `categorias:write`
+- `reservas:read` / `reservas:write`
+- `envios:read` / `envios:write`
+
