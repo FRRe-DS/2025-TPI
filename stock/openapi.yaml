@@ -29,7 +29,7 @@ paths:
       tags: [Productos]
       operationId: listarProductos
       security:
-        - OAuth2: [productos:read]      
+        - openIdConnect: [productos:read]      
       summary: Listar productos
       parameters:
         - $ref: '#/components/parameters/PaginaActual'
@@ -54,7 +54,7 @@ paths:
       summary: Crear un producto
       operationId: crearProducto
       security:
-        - OAuth2: [productos:write]
+        - openIdConnect: [productos:write]
       requestBody:
         required: true
         content:
@@ -81,7 +81,7 @@ paths:
       summary: Obtener un producto por ID
       operationId: obtenerProductoPorId
       security:
-        - OAuth2: [productos:read]
+        - openIdConnect: [productos:read]
       parameters:
         - name: productoId
           in: path
@@ -106,7 +106,7 @@ paths:
       summary: Actualizar parcialmente un producto
       operationId: actualizarProducto
       security:
-        - OAuth2: [productos:write]
+        - openIdConnect: [productos:write]
       parameters:
         - name: productoId
           in: path
@@ -131,7 +131,7 @@ paths:
       summary: Eliminar un producto
       operationId: eliminarProducto
       security:
-        - OAuth2: [productos:write]
+        - openIdConnect: [productos:write]
       parameters:
         - name: productoId
           in: path
@@ -148,7 +148,7 @@ paths:
       summary: Listar reservas de un usuario
       operationId: listarReservas
       security:
-        - OAuth2: [reservas:read]      
+        - openIdConnect: [reservas:read]      
       parameters:
         - name: usuarioId
           in: query
@@ -178,7 +178,7 @@ paths:
       summary: Crear una reserva
       operationId: crearReserva
       security:
-        - OAuth2: [reservas:write]
+        - openIdConnect: [reservas:write]
       requestBody:
         required: true
         content:
@@ -211,7 +211,7 @@ paths:
       summary: Consultar una reserva por ID
       operationId: obtenerReservaPorId
       security:
-        - OAuth2: [reservas:read]
+        - openIdConnect: [reservas:read]
       parameters:
         - name: idReserva
           in: path
@@ -242,7 +242,7 @@ paths:
       summary: Actualizar estado de una reserva
       operationId: actualizarReserva
       security:
-        - OAuth2: [reservas:write]
+        - openIdConnect: [reservas:write]
       parameters:
         - name: idReserva
           in: path
@@ -273,7 +273,7 @@ paths:
       summary: Cancelar una reserva
       operationId: cancelarReserva
       security:
-        - OAuth2: [reservas:write]
+        - openIdConnect: [reservas:write]
       description: "Cancela una reserva y libera el stock correspondiente."
       parameters:
         - name: idReserva
@@ -302,7 +302,7 @@ paths:
       summary: Listar todas las categorías
       operationId: listarCategorias
       security:
-        - OAuth2: [categorias:read]
+        - openIdConnect: [categorias:read]
       responses:
         '200':
           description: Una lista de categorías.
@@ -317,7 +317,7 @@ paths:
       summary: Crear una nueva categoría
       operationId: crearCategoria
       security: 
-        - OAuth2: [categorias:write]
+        - openIdConnect: [categorias:write]
       requestBody:
         required: true
         content:
@@ -344,7 +344,7 @@ paths:
       summary: Obtener una categoría por ID
       operationId: obtenerCategoriaPorId
       security:
-        - OAuth2: [categorias:read]
+        - openIdConnect: [categorias:read]
       parameters:
         - name: categoriaId
           in: path
@@ -369,7 +369,7 @@ paths:
       summary: Actualizar una categoría
       operationId: actualizarCategoria
       security:
-        - OAuth2: [categorias:write]
+        - openIdConnect: [categorias:write]
       parameters:
         - name: categoriaId
           in: path
@@ -394,7 +394,7 @@ paths:
       summary: Eliminar una categoría
       operationId: eliminarCategoria
       security:
-        - OAuth2: [categorias:write]
+        - openIdConnect: [categorias:write]
       parameters:
         - name: categoriaId
           in: path
@@ -406,6 +406,10 @@ paths:
           description: Categoría eliminada
 
 components:
+  securitySchemes:
+    openIdConnect:
+      type: openIdConnect
+      openIdConnectUrl: http://localhost:8080/realms/ds-2025-realm/.well-known/openid-configuration
   parameters:
     PaginaActual:
       name: page
