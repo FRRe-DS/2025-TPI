@@ -22,14 +22,14 @@ paths:
         Used by Order Management module to show shipping options to customers before purchase.
         
         Integration Flow:
-        1. Order Management sends only: delivery_address + product IDs with quantities
+        1. Order Management sends: delivery_address + product IDs with quantities + transport_type
         2. Logistics queries Stock module for EACH product:
            - GET /products/{id} → returns weight, dimensions, warehouse_postal_code
         3. Logistics calculates:
            - Total weight = sum(product.weight * quantity)
            - Total volume = sum(product dimensions * quantity)
            - Distance = from warehouse_postal_code to delivery_address.postal_code
-        4. Returns estimated cost based on weight, volume, distance, and transport type
+        4. Returns estimated cost and delivery date based on weight, volume, distance, and specified transport type
         5. NO data is persisted (quote only)
       security:
         - OAuth2: ["envios:read"]
@@ -48,6 +48,7 @@ paths:
                     state: "Chaco"
                     postal_code: "H3500ABC"
                     country: "AR"
+                  transport_type: "air"
                   products:
                     - id: 1
                       quantity: 2
@@ -66,6 +67,13 @@ paths:
                     currency: "ARS"
                     total_cost: 45.5
                     transport_type: "air"
+                    estimated_delivery_at: "2025-10-01T00:00:00Z"
+                    delivery_address:
+                      street: "Av. Dirac 1234"
+                      city: "Resistencia"
+                      state: "Chaco"
+                      postal_code: "H3500ABC"
+                      country: "AR"
                     products:
                       - id: 1
                         cost: 20.0
@@ -651,7 +659,7 @@ components:
     
     ShippingCostRequest:
       type: object
-      required: [delivery_address, products]
+      required: [delivery_address, products, transport_type]
       description: |
         Request body for shipping cost calculation.
         
@@ -666,10 +674,13 @@ components:
           description: List of products with only ID and quantity (Stock provides the rest)
           items:
             $ref: "#/components/schemas/ProductRequest"
+        transport_type:
+          $ref: "#/components/schemas/TransportType"
+          description: Transport method for cost calculation
 
     ShippingCostResponse:
       type: object
-      required: [currency, total_cost, transport_type, products]
+      required: [currency, total_cost, transport_type, products, estimated_delivery_at, delivery_address]
       description: Shipping cost calculation result
       properties:
         currency:
@@ -699,6 +710,14 @@ components:
                 format: float
                 description: Shipping cost for this product
                 example: 20.0
+        estimated_delivery_at:
+          type: string
+          format: date-time
+          description: Estimated delivery date and time (ISO 8601 UTC)
+          example: "2025-10-01T00:00:00Z"
+        delivery_address:
+          $ref: "#/components/schemas/Address"
+          description: Delivery address used for cost calculation
 
     TransportMethodsResponse:
       type: object
